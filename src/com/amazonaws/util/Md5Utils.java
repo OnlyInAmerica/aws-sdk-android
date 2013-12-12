@@ -29,6 +29,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Md5Utils {
 
+    static byte[] buffer;
+
     /**
      * Computes the MD5 hash of the data in the given input stream and returns
      * it as an array of bytes.
@@ -37,7 +39,7 @@ public class Md5Utils {
         BufferedInputStream bis = new BufferedInputStream(is);
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            byte[] buffer = new byte[16384];
+            if(buffer == null) buffer = new byte[16384];
             int bytesRead = -1;
             while ( (bytesRead = bis.read(buffer, 0, buffer.length)) != -1 ) {
                 messageDigest.update(buffer, 0, bytesRead);
